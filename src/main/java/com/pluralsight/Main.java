@@ -7,7 +7,11 @@ public class Main {
     // Accounting Ledger App Capstone
 
     // Welcome message & home-screen
-    System.out.println("Welcome to The Doll Bank! \uD81B\uDE6D ");
+    System.out.println("WELCOME TO THE DOLL BANK! \uD81B\uDE6D ");
+    System.out.println(); // space in between
+
+    // tell customer to select the following
+    System.out.println("\uD81B\uDE6D SELECT FROM THE FOLLOWING:");
 
     // ask what the customer's need
     System.out.println("D) - ADD DEPOSIT");
