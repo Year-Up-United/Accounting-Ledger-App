@@ -1,10 +1,20 @@
 package com.pluralsight;
+// add scanner
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
     // Accounting Ledger App Capstone
 
+    // Welcome message & home-screen
     System.out.println("Welcome to The Doll Bank! \uD81B\uDE6D ");
+
+    // ask what the customer's need
+    System.out.println("D) - ADD DEPOSIT");
+    System.out.println("P) - MAKE PAYMENT (DEBIT)");
+    System.out.println("L) - LEDGER");
+    System.out.println("X) - EXIT");
+
 
     // what is needed (HomeScreen)
     //      Home Screen
