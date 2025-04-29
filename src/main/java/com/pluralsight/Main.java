@@ -6,6 +6,9 @@ public class Main {
     public static void main(String[] args) {
     // Accounting Ledger App Capstone
 
+    // add scanner
+    Scanner scanner = new Scanner(System.in);
+
     // Welcome message & home-screen
     System.out.println("WELCOME TO THE DOLL BANK! \uD81B\uDE6D ");
     System.out.println(); // space in between
@@ -19,6 +22,8 @@ public class Main {
     System.out.println("L) - LEDGER");
     System.out.println("X) - EXIT");
 
+    // ask customer to choose an option
+    System.out.println("PLEASE PICK AN OPTION! \uD81B\uDE6D");
 
     // what is needed (HomeScreen)
     //      Home Screen
