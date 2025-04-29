@@ -18,7 +18,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-
+    // add getters and setters for this
 
 
 
