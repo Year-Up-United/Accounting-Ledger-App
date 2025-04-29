@@ -56,7 +56,8 @@ public class Main {
         scanner.close();
     }
 
-
+    // add method for deposits
+    
 
     // what is needed (HomeScreen)
     //      Home Screen
