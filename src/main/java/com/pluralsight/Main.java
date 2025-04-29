@@ -35,7 +35,7 @@ public class Main {
 
         switch (choice) {
             case "D":
-                System.out.println("LET'S ADD A DEPOSIT!");
+                addDeposit(scanner);
                 break;
             case "P":
                 System.out.println("LET'S MAKE A PAYMENT!");
@@ -55,9 +55,32 @@ public class Main {
 
         scanner.close();
     }
+    // add method to get information for deposits
+    public static void addDeposit(Scanner scanner){
+        // for description
+        System.out.println("ENTER A DESCRIPTION FOR YOUR DEPOSIT: ");
+        String description = scanner.nextLine();
+
+        // for vendor
+        System.out.println("ENTER A VENDOR: ");
+        String vendor = scanner.nextLine();
+
+        // for amount
+        System.out.println("ENTER AN AMOUNT: ");
+        double amount = scanner.nextInt();
+
+        // clear the new line
+        scanner.nextLine();
+
+        // statements to display for deposit information
+        System.out.println("YOU ENTERED: ");
+        System.out.println("DESCRIPTION: " + description);
+        System.out.println("VENDOR: " + vendor);
+        System.out.println("AMOUNT: " + amount);
+    }
 
     // add method for deposits
-    
+
 
     // what is needed (HomeScreen)
     //      Home Screen
