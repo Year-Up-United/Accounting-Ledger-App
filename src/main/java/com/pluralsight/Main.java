@@ -2,6 +2,10 @@ package com.pluralsight;
 // add scanner
 import java.util.Scanner;
 
+// import built in classes
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Main {
     public static void main(String[] args) {
     // Accounting Ledger App Capstone
@@ -67,19 +71,25 @@ public class Main {
 
         // for amount
         System.out.println("ENTER AN AMOUNT: ");
-        double amount = scanner.nextInt();
+        double amount = scanner.nextDouble();
 
         // clear the new line
         scanner.nextLine();
+
+        // get current date and time
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now().withNano(0); // nano removes extra smaller seconds
 
         // statements to display for deposit information
         System.out.println("YOU ENTERED: ");
         System.out.println("DESCRIPTION: " + description);
         System.out.println("VENDOR: " + vendor);
         System.out.println("AMOUNT: " + amount);
+        System.out.println("DATE: " + date);
+        System.out.println("TIME: " + time);
     }
 
-    // add method for deposits
+
 
 
     // what is needed (HomeScreen)
