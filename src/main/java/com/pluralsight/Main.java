@@ -6,6 +6,14 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+// file + list things for saving & loading
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
     // Accounting Ledger App Capstone
@@ -39,13 +47,13 @@ public class Main {
 
         switch (choice) {
             case "D":
-                addDeposit(scanner);
+                addTransaction(scanner, true);
                 break;
             case "P":
-                System.out.println("LET'S MAKE A PAYMENT!");
+                addTransaction(scanner, false);
                 break;
             case "L":
-                System.out.println("HERE'S YOUR ACCOUNT LEDGER!");
+                ledgerMenu(scanner);
                 break;
             case "X":
                 System.out.println("THANKS FOR BANKING WITH THE DOLLS!");
@@ -60,9 +68,9 @@ public class Main {
         scanner.close();
     }
     // add method to get information for deposits
-    public static void addDeposit(Scanner scanner){
+    public static void addTransaction(Scanner scanner, boolean isDeposit) {
         // for description
-        System.out.println("ENTER A DESCRIPTION FOR YOUR DEPOSIT: ");
+        System.out.println(isDeposit ? "ENTER A DESCRIPTION FOR YOUR DEPOSIT: ");
         String description = scanner.nextLine();
 
         // for vendor
@@ -76,9 +84,51 @@ public class Main {
         // clear the new line
         scanner.nextLine();
 
+        if (!isDeposit && amount > 0) {
+            amount = -amount; // this makes payments negative
+        }
+
+
         // get current date and time
         LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now().withNano(0); // nano removes extra smaller seconds
+        LocalTime time = LocalTime.now();
+
+        // create transaction object
+        Transaction transaction = new Transaction(
+                date.toString(),
+                time.toString(),
+                description,
+                vendor,
+                amount
+        );
+
+        // save to csv
+        try {
+            FileWriter writer = new FileWriter("transaction.csv", true);
+            writer.write(transaction.toCSV() + "\n");
+            writer.close();
+            System.out.println("YOUR TRANSACTION WAS SAVED!");
+        } catch (IOException e) {
+            System.out.println("ERROR SAVING TRANSACTION: " + e.getMessage());
+        }
+        System.out.println("TRANSACTION RECORDED:");
+        System.out.println(transaction);
+    }
+
+    // new method for the ledger menu
+    public static void ledgerMenu(Scanner scanner){
+        boolean inLedger = true;
+
+        while (inLedger) {
+            System.out.println();
+            System.out.println("LEDGER MENU:");
+            System.out.println("A) - VIEW ALL TRANSACTIONS");
+            System.out.println("D) - VIEW DEPOSITS");
+            System.out.println("P) - VIEW PAYMENTS");
+            System.out.println("H) - RETURN TO HOME");
+            System.out.print("CHOOSE AN OPTION: ");
+
+        String choice = scanner.nextLine()
 
         // statements to display for deposit information
         System.out.println("YOU ENTERED: ");
@@ -89,7 +139,7 @@ public class Main {
         System.out.println("TIME: " + time);
     }
 
-
+}
 
 
     // what is needed (HomeScreen)

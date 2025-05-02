@@ -34,32 +34,24 @@ public class Transaction {
     public void setVendor(String vendor){ this.vendor = vendor; }
     public void setAmount(double amount){ this.amount = amount; }
 
-
-
-
-
-
-
-    
-    // Print out of what is being returned
-    public String toString() {
+    // print transaction
+    public String toString(){
         return date + " | " + time + " | " + description + " | " + vendor + " | " + amount;
+    }
 
-        // convert date/time into Strings
-        String dateString = date.toString();
-        String timeString = time.toString();
-
-    // create Transaction object
-        Transaction deposit = new Transaction(dateString, timeString, description, vendor, amount);
-
-    // print it out to confirm it worked
-        System.out.println("YOUR TRANSACTION OBJECT:");
-        System.out.println(deposit);
-
-
-
+    // format as CSV line
+    public String toCSV(){
+        return date + " | " + time + " | " + description + " | " + vendor + " | " +  amount;
 
     }
-}
+
+    // load from csv line
+    public static Transaction fromCSV(String line){
+        String[] parts = line.split("\\|");
+        return new Transaction(parts[0], parts[1], parts[3], Double.parseDouble(parts[4]));
+    }
+
+    }
+
 
 
