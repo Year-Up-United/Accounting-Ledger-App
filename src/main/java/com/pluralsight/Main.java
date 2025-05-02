@@ -32,7 +32,7 @@ public class Main {
             System.out.println(); // space in between
 
             // tell customer to select the following
-            System.out.println("\uD81B\uDE6D SELECT FROM THE FOLLOWING:");
+            System.out.println("\uD81B\uDE6D SELECT FROM  THE FOLLOWING:");
 
             // ask what the customer's need
             System.out.println("D) - ADD DEPOSIT");
@@ -92,7 +92,7 @@ public class Main {
 
         // get current date and time
         LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
+        LocalTime time = LocalTime.now().withNano(0);
 
         // create transaction object
         Transaction transaction = new Transaction(

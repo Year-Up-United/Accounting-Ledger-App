@@ -50,7 +50,10 @@ public class Ledger {
         List<Transaction> transactions = loadTransactions();
         Collections.reverse(transactions);
         System.out.println("\n--- " + filter + " TRANSACTIONS ---");
+        // debug output
+        System.out.println("NUMBER OF TRANSACTIONS LOADED: " + transactions.size());
         for (Transaction t : transactions) {
+            // checks to see of the transaction matches the filter (all. deposits, payments)
             if (filter.equals("ALL") ||
                     (filter.equals("DEPOSITS") && t.getAmount() > 0) ||
                     (filter.equals("PAYMENTS") && t.getAmount() < 0)) {
@@ -63,6 +66,7 @@ public class Ledger {
         List<Transaction> transactions = new ArrayList<>();
         File file = new File("transactions.csv");
         if (!file.exists()) {
+            System.out.println("TRANSACTIONS.CSV FILE DOES NOT EXIST");
             return transactions;
         }
         try {
@@ -73,13 +77,14 @@ public class Ledger {
                 transactions.add(transaction);
             }
             fileScanner.close();
+            System.out.println("TRANSACTIONS LOADED: " + transactions.size());
         } catch (IOException e) {
             System.out.println("ERROR READING TRANSACTIONS: " + e.getMessage());
         }
         return transactions;
     }
 
-    // 🌟🌟🌟 NEW REPORTS MENU METHOD 🌟🌟🌟
+    // NEW REPORTS MENU METHOD
     public static void reportsMenu(Scanner scanner) {
         boolean inReports = true;
 
@@ -116,7 +121,7 @@ public class Ledger {
                     inReports = false;
                     break;
                 default:
-                    System.out.println("❌ Invalid option.");
+                    System.out.println("INVALID OPTION!");
             }
         }
     }
@@ -187,9 +192,11 @@ public class Ledger {
         Collections.reverse(transactions);
 
         System.out.println("\n--- TRANSACTIONS FOR VENDOR: " + vendorSearch.toUpperCase() + " ---");
+        boolean found = false;
         for (Transaction t : transactions) {
-            if (t.getVendor().toLowerCase().contains(vendorSearch)) {
+            if (t.getVendor().trim().toLowerCase().contains(vendorSearch)) {
                 System.out.println(t);
+                found = true;
             }
         }
     }
