@@ -146,36 +146,3 @@ public class Main {
 
     }
 }
-
-// statements to display for deposit information
-//        System.out.println("YOU ENTERED: ");
-//        System.out.println("DESCRIPTION: " + description);
-//        System.out.println("VENDOR: " + vendor);
-//        System.out.println("AMOUNT: " + amount);
-//        System.out.println("DATE: " + date);
-//        System.out.println("TIME: " + time);
-//
-
-
-    // what is needed (HomeScreen)
-    //      Home Screen
-    //      - The home screen should give the user the following options. The
-    //        application should continue to run until the user chooses to exit.
-    //
-    //      Add Deposit
-    //      - prompt user for the deposit information and
-    //        save it to the csv file
-    //
-    //      Make Payment (Debit)
-    //      - prompt user for the debit
-    //        information and save it to the csv file
-    //
-    //      Ledger
-    //      - display the ledger screen
-    //
-    //      Exit
-    //      - exit the application
-
-
-
-
