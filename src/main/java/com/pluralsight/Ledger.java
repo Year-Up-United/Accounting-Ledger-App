@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.*;
 
 public class Ledger {
 
@@ -67,6 +68,10 @@ public class Ledger {
     public static List<Transaction> loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         File file = new File("transactions.csv");
+        System.out.println("LOOKING FOR FILE: " + file.getAbsolutePath());
+        System.out.println("DOES FILE EXIST?" + file.exists());
+
+        // if statements
         if (!file.exists()) {
             System.out.println("TRANSACTIONS.CSV FILE DOES NOT EXIST");
             return transactions;
@@ -75,7 +80,14 @@ public class Ledger {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
+                System.out.println("LINE: " + line);
+                String[] parts = line.split("\\|");
+                System.out.println("PARTS LENGTH: " + parts.length);
+                if (parts.length !=5) continue;
+
+
                 Transaction transaction = Transaction.fromCSV(line);
+                System.out.println("TRANSACTION ADDED!" + transaction);
                 transactions.add(transaction);
             }
             fileScanner.close();
