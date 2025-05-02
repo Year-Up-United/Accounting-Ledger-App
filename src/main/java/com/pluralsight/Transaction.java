@@ -47,8 +47,8 @@ public class Transaction {
 
     // load from csv line
     public static Transaction fromCSV(String line){
-        String[] parts = line.split("\\|");
-        return new Transaction(parts[0], parts[1], parts[3], Double.parseDouble(parts[4]));
+        String[] parts = line.split("\\s*\\|\\*");
+        return new Transaction(parts[0], parts[1], parts [2], parts[3], Double.parseDouble(parts[4]));
     }
 
     }

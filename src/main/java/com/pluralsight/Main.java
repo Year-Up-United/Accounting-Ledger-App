@@ -53,7 +53,7 @@ public class Main {
                     addTransaction(scanner, false);
                     break;
                 case "L":
-                    ledgerMenu(scanner);
+                    Ledger.ledgerMenu(scanner);
                     break;
                 case "X":
                     System.out.println("THANKS FOR BANKING WITH THE DOLLS!");
@@ -71,7 +71,7 @@ public class Main {
     // add method to get information for deposits
     public static void addTransaction(Scanner scanner, boolean isDeposit) {
         // for description
-        System.out.println(isDeposit ? "ENTER A DESCRIPTION FOR YOUR DEPOSIT: ");
+        System.out.println(isDeposit ? "ENTER A DESCRIPTION FOR YOUR DEPOSIT: " : "ENTER A DESCRIPTION FOR YOUR PAYMENT");
         String description = scanner.nextLine();
 
         // for vendor
@@ -105,7 +105,7 @@ public class Main {
 
         // save to csv
         try {
-            FileWriter writer = new FileWriter("transaction.csv", true);
+            FileWriter writer = new FileWriter("transactions.csv", true);
             writer.write(transaction.toCSV() + "\n");
             writer.close();
             System.out.println("YOUR TRANSACTION WAS SAVED!");
@@ -116,64 +116,8 @@ public class Main {
         System.out.println(transaction);
     }
 
-    // new method for the ledger menu
-    public static void ledgerMenu(Scanner scanner) {
-        boolean inLedger = true;
-
-        while (inLedger) {
-            System.out.println();
-            System.out.println("LEDGER MENU:");
-            System.out.println("A) - VIEW ALL TRANSACTIONS");
-            System.out.println("D) - VIEW DEPOSITS");
-            System.out.println("P) - VIEW PAYMENTS");
-            System.out.println("H) - RETURN TO HOME");
-            System.out.print("CHOOSE AN OPTION: ");
-
-            String choice = scanner.nextLine().trim().toUpperCase();
-
-            switch (choice) {
-                case "A":
-                    displayTransactions("ALL");
-                    break;
-                case "D":
-                    displayTransactions("DEPOSITS");
-                    break;
-                case "P":
-                    displayTransactions("PAYMENTS");
-                    break;
-                case "H":
-                    inLedger = false;
-                    break;
-                default:
-                    System.out.println("INVALID OPTION DOLL!");
-            }
-        }
-    }
-
-    // new method for loading transactions from CSV
-    public static List<Transaction> loadTransactions() {
-        List<Transaction> transactions = new ArrayList<>();
-        File file = new File("transactions.csv");
-
-        // if statements
-        if (!file.exists()) {
-            return transactions;
-        }
-        try {
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                Transaction transaction = Transaction.fromCSV(line);
-                transaction.add(transaction);
-            }
-            fileScanner.close();
-        } catch (IOException e) {
-            System.out.println("ERROR READING YOUR TRANSACTIONS!: " + e.getMessage());
         }
 
-        return transactions;
-    }
-}
         // statements to display for deposit information
 //        System.out.println("YOU ENTERED: ");
 //        System.out.println("DESCRIPTION: " + description);
