@@ -16,57 +16,58 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-    // Accounting Ledger App Capstone
+        // Accounting Ledger App Capstone
 
-    // add scanner
-    Scanner scanner = new Scanner(System.in);
+        // add scanner
+        Scanner scanner = new Scanner(System.in);
 
-    // loop to keep user in app until they exit
-    boolean running = true;
+        // loop to keep user in app until they exit
+        boolean running = true;
 
-    // Welcome message & home-screen
-    System.out.println("WELCOME TO THE DOLL BANK! \uD81B\uDE6D ");
+        // Welcome message & home-screen
+        System.out.println("WELCOME TO THE DOLL BANK! \uD81B\uDE6D ");
 
-    // run loop
-    while (running){
-    System.out.println(); // space in between
+        // run loop
+        while (running) {
+            System.out.println(); // space in between
 
-    // tell customer to select the following
-    System.out.println("\uD81B\uDE6D SELECT FROM THE FOLLOWING:");
+            // tell customer to select the following
+            System.out.println("\uD81B\uDE6D SELECT FROM THE FOLLOWING:");
 
-    // ask what the customer's need
-    System.out.println("D) - ADD DEPOSIT");
-    System.out.println("P) - MAKE PAYMENT (DEBIT)");
-    System.out.println("L) - LEDGER");
-    System.out.println("X) - EXIT");
+            // ask what the customer's need
+            System.out.println("D) - ADD DEPOSIT");
+            System.out.println("P) - MAKE PAYMENT (DEBIT)");
+            System.out.println("L) - LEDGER");
+            System.out.println("X) - EXIT");
 
-    // ask customer to choose an option
-    System.out.println("PLEASE PICK AN OPTION! \uD81B\uDE6D");
+            // ask customer to choose an option
+            System.out.println("PLEASE PICK AN OPTION! \uD81B\uDE6D");
 
-        String choice = scanner.nextLine().trim().toUpperCase();
+            String choice = scanner.nextLine().trim().toUpperCase();
 
-        switch (choice) {
-            case "D":
-                addTransaction(scanner, true);
-                break;
-            case "P":
-                addTransaction(scanner, false);
-                break;
-            case "L":
-                ledgerMenu(scanner);
-                break;
-            case "X":
-                System.out.println("THANKS FOR BANKING WITH THE DOLLS!");
-                running = false;
-                break;
-            default:
-                System.out.println("NOT A VALID OPTION! LET'S TRY AGAIN.");
-                break;
+            switch (choice) {
+                case "D":
+                    addTransaction(scanner, true);
+                    break;
+                case "P":
+                    addTransaction(scanner, false);
+                    break;
+                case "L":
+                    ledgerMenu(scanner);
+                    break;
+                case "X":
+                    System.out.println("THANKS FOR BANKING WITH THE DOLLS!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("NOT A VALID OPTION! LET'S TRY AGAIN.");
+                    break;
+            }
         }
-    }
 
         scanner.close();
     }
+
     // add method to get information for deposits
     public static void addTransaction(Scanner scanner, boolean isDeposit) {
         // for description
@@ -116,7 +117,7 @@ public class Main {
     }
 
     // new method for the ledger menu
-    public static void ledgerMenu(Scanner scanner){
+    public static void ledgerMenu(Scanner scanner) {
         boolean inLedger = true;
 
         while (inLedger) {
@@ -128,18 +129,59 @@ public class Main {
             System.out.println("H) - RETURN TO HOME");
             System.out.print("CHOOSE AN OPTION: ");
 
-        String choice = scanner.nextLine()
+            String choice = scanner.nextLine().trim().toUpperCase();
 
-        // statements to display for deposit information
-        System.out.println("YOU ENTERED: ");
-        System.out.println("DESCRIPTION: " + description);
-        System.out.println("VENDOR: " + vendor);
-        System.out.println("AMOUNT: " + amount);
-        System.out.println("DATE: " + date);
-        System.out.println("TIME: " + time);
+            switch (choice) {
+                case "A":
+                    displayTransactions("ALL");
+                    break;
+                case "D":
+                    displayTransactions("DEPOSITS");
+                    break;
+                case "P":
+                    displayTransactions("PAYMENTS");
+                    break;
+                case "H":
+                    inLedger = false;
+                    break;
+                default:
+                    System.out.println("INVALID OPTION DOLL!");
+            }
+        }
     }
 
+    // new method for loading transactions from CSV
+    public static List<Transaction> loadTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        File file = new File("transactions.csv");
+
+        // if statements
+        if (!file.exists()) {
+            return transactions;
+        }
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                Transaction transaction = Transaction.fromCSV(line);
+                transaction.add(transaction);
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("ERROR READING YOUR TRANSACTIONS!: " + e.getMessage());
+        }
+
+        return transactions;
+    }
 }
+        // statements to display for deposit information
+//        System.out.println("YOU ENTERED: ");
+//        System.out.println("DESCRIPTION: " + description);
+//        System.out.println("VENDOR: " + vendor);
+//        System.out.println("AMOUNT: " + amount);
+//        System.out.println("DATE: " + date);
+//        System.out.println("TIME: " + time);
+//
 
 
     // what is needed (HomeScreen)
@@ -164,6 +206,3 @@ public class Main {
 
 
 
-
-
-    }
