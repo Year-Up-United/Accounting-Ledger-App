@@ -1,5 +1,6 @@
 package com.pluralsight;
 // add scanner
+import java.io.*;
 import java.util.Scanner;
 
 // import built in classes
@@ -7,9 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 // file + list things for saving & loading
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -114,11 +112,42 @@ public class Main {
         }
         System.out.println("TRANSACTION RECORDED:");
         System.out.println(transaction);
+
     }
 
+
+    // create a method to return *reader
+    public List<Transaction> readAllTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                // skip malformed lines
+                if (parts.length != 5) continue;
+
+                String date = parts[0].trim();
+                String time = parts[1].trim();
+                String description = parts[2].trim();
+                String vendor = parts[3].trim();
+                double amount = Double.parseDouble(parts[4].trim());
+
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                transactions.add(transaction);
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR READING TRANSACTIONS: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR PARSING AMOUNT IN TRANSACTION: " + e.getMessage());
         }
 
-        // statements to display for deposit information
+        return transactions;
+
+    }
+}
+
+// statements to display for deposit information
 //        System.out.println("YOU ENTERED: ");
 //        System.out.println("DESCRIPTION: " + description);
 //        System.out.println("VENDOR: " + vendor);

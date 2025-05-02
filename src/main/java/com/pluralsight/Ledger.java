@@ -50,9 +50,11 @@ public class Ledger {
         List<Transaction> transactions = loadTransactions();
         Collections.reverse(transactions);
         System.out.println("\n--- " + filter + " TRANSACTIONS ---");
+
         // debug output
         System.out.println("NUMBER OF TRANSACTIONS LOADED: " + transactions.size());
         for (Transaction t : transactions) {
+
             // checks to see of the transaction matches the filter (all. deposits, payments)
             if (filter.equals("ALL") ||
                     (filter.equals("DEPOSITS") && t.getAmount() > 0) ||
