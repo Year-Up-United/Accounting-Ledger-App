@@ -20,21 +20,27 @@ public class Transaction {
 
     // add getters and setters for this
 
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    // my getters
+    public String getDate() {return date; }
+    public String getTime() {return time; }
+    public String getDescription() {return description; }
+    public String getVendor() {return vendor; }
+    public double getAmount() {return amount; }
 
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
+    // my setters
+    public void setDate(String date){ this.date = date; }
+    public void setTime(String time){ this.time = time; }
+    public void setDescription(String description){ this.description = description; }
+    public void setVendor(String vendor){ this.vendor = vendor; }
+    public void setAmount(double amount){ this.amount = amount; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 
-    public String getVendor() { return vendor; }
-    public void setVendor(String vendor) { this.vendor = vendor; }
 
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
 
+
+
+
+    
     // Print out of what is being returned
     public String toString() {
         return date + " | " + time + " | " + description + " | " + vendor + " | " + amount;
