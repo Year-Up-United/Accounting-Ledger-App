@@ -26,3 +26,22 @@ The project is composed of the following classes:
 - Transaction: Represents a single financial transaction, including properties such as date/time, description, vendor, and amount. This class includes methods for saving transactions to the CSV file and reading them from the file.
 
 - Ledger: Manages the transaction ledger, providing methods to display all transactions, filter by deposits or payments, and generate various reports. This class also handles loading the transactions from the CSV file.
+
+## Screenshots
+
+
+![homescreen screenshot](https://github.com/user-attachments/assets/ac0bc5f5-0e53-4cb4-812a-00f439e86bc9)
+
+
+![Screenshot 2025-05-02 041722](https://github.com/user-attachments/assets/9eb84afd-26fc-4384-96f3-55ecf2475406)
+
+
+![Screenshot 2025-05-02 041932](https://github.com/user-attachments/assets/202b5724-8a4d-46a9-8c86-6c0de59b98a7)
+
+
+![Screenshot 2025-05-02 042826](https://github.com/user-attachments/assets/7dad43c9-fea0-4691-b435-523cd6f94d70)
+
+
+
+
+
