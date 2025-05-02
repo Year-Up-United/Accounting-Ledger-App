@@ -38,6 +38,21 @@ public class Transaction {
     // Print out of what is being returned
     public String toString() {
         return date + " | " + time + " | " + description + " | " + vendor + " | " + amount;
+
+        // convert date/time into Strings
+        String dateString = date.toString();
+        String timeString = time.toString();
+
+    // create Transaction object
+        Transaction deposit = new Transaction(dateString, timeString, description, vendor, amount);
+
+    // print it out to confirm it worked
+        System.out.println("YOUR TRANSACTION OBJECT:");
+        System.out.println(deposit);
+
+
+
+
     }
 }
 
