@@ -45,12 +45,19 @@ public class Transaction {
 
     }
 
-    // load from csv line
-    public static Transaction fromCSV(String line){
-        String[] parts = line.split("\\s*\\|\\*");
-        return new Transaction(parts[0], parts[1], parts [2], parts[3], Double.parseDouble(parts[4]));
-    }
+    // load to csv line
+    public static Transaction fromCSV(String line) {
+        String[] parts = line.split("\\|");
 
+        // trim extra spaces just in case
+        String date = parts[0].trim();
+        String time = parts[1].trim();
+        String description = parts[2].trim();
+        String vendor = parts[3].trim();
+        double amount = Double.parseDouble(parts[4].trim());
+
+    return new Transaction(date, time, description, vendor, amount);
+    }
     }
 
 

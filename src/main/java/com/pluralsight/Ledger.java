@@ -1,5 +1,6 @@
 package com.pluralsight;
-
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Ledger {
             System.out.println("A) - VIEW ALL TRANSACTIONS");
             System.out.println("D) - VIEW DEPOSITS");
             System.out.println("P) - VIEW PAYMENTS");
+            System.out.println("R) - REPORTS");
             System.out.println("H) - RETURN HOME");
             System.out.println("CHOOSE AN OPTION: ");
 
@@ -33,11 +35,14 @@ public class Ledger {
                 case "P":
                     displayTransactions("PAYMENTS");
                     break;
+                case "R":
+                    reportsMenu(scanner);
+                    break;
                 case "H":
                     inLedger = false;
                     break;
                 default:
-                    System.out.println("❌ Invalid option.");
+                    System.out.println("INVALID OPTION.");
             }
         }
     }
@@ -53,6 +58,7 @@ public class Ledger {
             }
         }
     }
+
     public static List<Transaction> loadTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         File file = new File("transactions.csv");
@@ -71,6 +77,121 @@ public class Ledger {
             System.out.println("ERROR READING TRANSACTIONS: " + e.getMessage());
         }
         return transactions;
+    }
+
+    // 🌟🌟🌟 NEW REPORTS MENU METHOD 🌟🌟🌟
+    public static void reportsMenu(Scanner scanner) {
+        boolean inReports = true;
+
+        while (inReports) {
+            System.out.println();
+            System.out.println("REPORTS MENU:");
+            System.out.println("1) - MONTH TO DATE");
+            System.out.println("2) - PREVIOUS MONTH");
+            System.out.println("3) - YEAR TO DATE");
+            System.out.println("4) - PREVIOUS YEAR");
+            System.out.println("5) - SEARCH BY VENDOR");
+            System.out.println("0) - BACK");
+            System.out.print("CHOOSE AN OPTION: ");
+
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1":
+                    filterMonthToDate();
+                    break;
+                case "2":
+                    filterPreviousMonth();
+                    break;
+                case "3":
+                    filterYearToDate();
+                    break;
+                case "4":
+                    filterPreviousYear();
+                    break;
+                case "5":
+                    searchByVendor(scanner);
+                    break;
+                case "0":
+                    inReports = false;
+                    break;
+                default:
+                    System.out.println("❌ Invalid option.");
+            }
+        }
+    }
+
+    // filter method for records
+    public static void filterMonthToDate() {
+        LocalDate today = LocalDate.now();
+        YearMonth currentMonth = YearMonth.from(today);
+        List<Transaction> transactions = loadTransactions();
+        Collections.reverse(transactions);
+
+        System.out.println("\n--- MONTH TO DATE TRANSACTIONS ---");
+        for (Transaction t : transactions) {
+            LocalDate transDate = LocalDate.parse(t.getDate());
+            if (YearMonth.from(transDate).equals(currentMonth)) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    public static void filterPreviousMonth() {
+        LocalDate today = LocalDate.now();
+        YearMonth previousMonth = YearMonth.from(today).minusMonths(1);
+        List<Transaction> transactions = loadTransactions();
+        Collections.reverse(transactions);
+
+        System.out.println("\n--- PREVIOUS MONTH TRANSACTIONS ---");
+        for (Transaction t : transactions) {
+            LocalDate transDate = LocalDate.parse(t.getDate());
+            if (YearMonth.from(transDate).equals(previousMonth)) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    public static void filterYearToDate() {
+        int currentYear = LocalDate.now().getYear();
+        List<Transaction> transactions = loadTransactions();
+        Collections.reverse(transactions);
+
+        System.out.println("\n--- YEAR TO DATE TRANSACTIONS ---");
+        for (Transaction t : transactions) {
+            LocalDate transDate = LocalDate.parse(t.getDate());
+            if (transDate.getYear() == currentYear) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    public static void filterPreviousYear() {
+        int previousYear = LocalDate.now().getYear() - 1;
+        List<Transaction> transactions = loadTransactions();
+        Collections.reverse(transactions);
+
+        System.out.println("\n--- PREVIOUS YEAR TRANSACTIONS ---");
+        for (Transaction t : transactions) {
+            LocalDate transDate = LocalDate.parse(t.getDate());
+            if (transDate.getYear() == previousYear) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    public static void searchByVendor(Scanner scanner) {
+        System.out.print("ENTER VENDOR NAME TO SEARCH: ");
+        String vendorSearch = scanner.nextLine().trim().toLowerCase();
+        List<Transaction> transactions = loadTransactions();
+        Collections.reverse(transactions);
+
+        System.out.println("\n--- TRANSACTIONS FOR VENDOR: " + vendorSearch.toUpperCase() + " ---");
+        for (Transaction t : transactions) {
+            if (t.getVendor().toLowerCase().contains(vendorSearch)) {
+                System.out.println(t);
+            }
+        }
     }
 }
 
